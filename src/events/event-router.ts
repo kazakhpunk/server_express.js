@@ -3,7 +3,7 @@ import EventController from "./event-controller";
 import EventService from "./event-service";
 import { authMiddleware } from "../middlewares/auth-middleware";
 import UserModel from "../auth/models/User";
-import { roleFence } from "../middlewares/roleFence";
+// import { roleFence } from "../middlewares/roleFence";
 
 //in order to provide our frontend with the user data, we need to specify user routes
 
@@ -14,15 +14,16 @@ const eventController = new EventController(eventService);
 
 eventRouter.get("/events/", eventController.getEvents);
 eventRouter.post("/events/", eventController.createEvent);
+eventRouter.get("/events/city", authMiddleware, eventController.getEventsByCity);
 eventRouter.get("/events/:id", eventController.getEventById);
 
-eventRouter.delete(
-  "/events/:id",
-  authMiddleware,
-  roleFence("admin"),
-  async (req, res) => {
-    res.send("Delete event by id");
-  }
-);
+// eventRouter.delete(
+//   "/events/:id",
+//   authMiddleware,
+//   roleFence("admin"),
+//   async (req, res) => {
+//     res.send("Delete event by id");
+//   }
+// );
 
 export default eventRouter;

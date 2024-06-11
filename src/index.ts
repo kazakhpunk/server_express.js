@@ -14,7 +14,7 @@ connectDB();
 app.use(logger);
 app.use(express.json());
 
-app.use("/api/v1/", globalRouter);
+app.use("/api/", globalRouter);
 
 app.get("/slow", async (request, response) => {
   const worker = new Worker("./src/workers/counterWorker.ts");
